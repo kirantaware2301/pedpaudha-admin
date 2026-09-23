@@ -33,6 +33,15 @@ export const AdminApi = {
     return res.data;
   },
 
+  uploadProgramImage: async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await api.post('/admin/programs/upload-image', formData, {
+      headers: { 'Content-Type': undefined },
+    });
+    return res.data;
+  },
+
   toggleProgramActive: async (id: number) => {
     const res = await api.patch(`/admin/programs/${id}/toggle-active`);
     return res.data;
@@ -110,9 +119,7 @@ export const AdminApi = {
   uploadEventImage: async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    const res = await api.post('/admin/events/upload-image', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    const res = await api.post('/admin/events/upload-image', formData);
     return res.data;
   },
 

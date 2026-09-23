@@ -683,6 +683,56 @@ body {
   display: none;
 }
 
+.program-manager-image {
+  width: 48px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+}
+
+.program-image-upload {
+  width: 100%;
+  min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border: 1px dashed #8FA9B0;
+  border-radius: 12px;
+  color: var(--color-primary);
+  background: linear-gradient(180deg, #F8FCFC 0%, #F3F8F8 100%);
+  cursor: pointer;
+  text-align: center;
+}
+
+.program-image-upload img {
+  width: 104px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 7px;
+  border: 1px solid var(--color-border);
+}
+
+.program-image-upload span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.program-image-upload small {
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+}
+
+.program-image-upload input {
+  display: none;
+}
+
 /* Professional Loading Indicator & Skeleton */
 .loading-indicator {
   display: flex;

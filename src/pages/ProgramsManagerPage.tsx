@@ -10,7 +10,9 @@ import {
   Sparkles,
   CheckCircle2,
   XCircle,
-  AlertCircle
+  AlertCircle,
+  ImagePlus,
+  Upload
 } from 'lucide-react';
 
 export const ProgramsManagerPage: React.FC = () => {
@@ -18,6 +20,8 @@ export const ProgramsManagerPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProgram, setEditingProgram] = useState<any>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState('');
 
   // Form State
   const [formData, setFormData] = useState({
@@ -26,6 +30,7 @@ export const ProgramsManagerPage: React.FC = () => {
     tagline: '',
     description: '',
     icon: 'GraduationCap',
+    imageUrl: '',
     colorTheme: '#2563EB',
     bgGradient: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)',
     displayOrder: 1,
@@ -59,11 +64,14 @@ export const ProgramsManagerPage: React.FC = () => {
       tagline: '',
       description: '',
       icon: 'HeartHandshake',
+      imageUrl: '',
       colorTheme: '#0D5C63',
       bgGradient: 'linear-gradient(135deg, #094449 0%, #1A8A8F 100%)',
       displayOrder: programs.length + 1,
       active: true,
     });
+    setSelectedImage(null);
+    setImagePreview('');
     setErrorMsg('');
     setModalOpen(true);
   };
@@ -76,11 +84,14 @@ export const ProgramsManagerPage: React.FC = () => {
       tagline: prog.tagline,
       description: prog.description,
       icon: prog.icon,
+      imageUrl: prog.imageUrl || '',
       colorTheme: prog.colorTheme,
       bgGradient: prog.bgGradient,
       displayOrder: prog.displayOrder,
       active: prog.active,
     });
+    setSelectedImage(null);
+    setImagePreview(prog.imageUrl || '');
     setErrorMsg('');
     setModalOpen(true);
   };
@@ -112,10 +123,15 @@ export const ProgramsManagerPage: React.FC = () => {
     setErrorMsg('');
 
     try {
+      let programData = formData;
+      if (selectedImage) {
+        const uploadResponse = await AdminApi.uploadProgramImage(selectedImage);
+        programData = { ...formData, imageUrl: uploadResponse.imageUrl };
+      }
       if (editingProgram) {
-        await AdminApi.updateProgram(editingProgram.id, formData);
+        await AdminApi.updateProgram(editingProgram.id, programData);
       } else {
-        await AdminApi.createProgram(formData);
+        await AdminApi.createProgram(programData);
       }
       setModalOpen(false);
       loadPrograms();
@@ -124,6 +140,22 @@ export const ProgramsManagerPage: React.FC = () => {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      setErrorMsg('Please select an image file.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setErrorMsg('Image must be 5 MB or smaller.');
+      return;
+    }
+    setErrorMsg('');
+    setSelectedImage(file);
+    setImagePreview(URL.createObjectURL(file));
   };
 
   // Generate slug dynamically from name
@@ -164,7 +196,7 @@ export const ProgramsManagerPage: React.FC = () => {
                 <th>Order</th>
                 <th>Program</th>
                 <th>Slug</th>
-                <th>Theme & Gradient</th>
+                <th>Image</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -175,8 +207,10 @@ export const ProgramsManagerPage: React.FC = () => {
                   <td style={{ fontWeight: 700, color: '#718096' }}>#{prog.displayOrder}</td>
                   <td>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <div 
-                        style={{ 
+                      {prog.imageUrl ? (
+                        <img src={prog.imageUrl} alt={prog.name} className="program-manager-image" />
+                      ) : <div 
+                        style={{
                           width: '36px', 
                           height: '36px', 
                           borderRadius: '8px', 
@@ -190,7 +224,7 @@ export const ProgramsManagerPage: React.FC = () => {
                         }}
                       >
                         {prog.name.charAt(0)}
-                      </div>
+                      </div>}
                       <div>
                         <div style={{ fontWeight: 600 }}>{prog.name}</div>
                         <div style={{ fontSize: '0.78rem', color: '#718096', maxWidth: '240px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -198,17 +232,11 @@ export const ProgramsManagerPage: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </td>
-                  <td>
+                  </td>   
+                  <td>   
                     <code style={{ background: '#F1F5F9', padding: '2px 6px', borderRadius: '4px', fontSize: '0.8rem' }}>
                       /{prog.slug}
                     </code>
-                  </td>
-                  <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: prog.colorTheme, border: '1px solid #CBD5E1' }} />
-                      <span style={{ fontSize: '0.75rem', color: '#64748B' }}>{prog.colorTheme}</span>
-                    </div>
                   </td>
                   <td>
                     <button
@@ -346,37 +374,17 @@ export const ProgramsManagerPage: React.FC = () => {
                   </div>
 
                   <div className="form-group">
-                    <label>Theme Color (Hex)</label>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <input 
-                        type="color" 
-                        value={formData.colorTheme.startsWith('#') ? formData.colorTheme : '#0D5C63'}
-                        onChange={(e) => setFormData({ ...formData, colorTheme: e.target.value })}
-                        style={{ height: '42px', width: '50px', cursor: 'pointer', border: '1px solid #CBD5E1', borderRadius: '6px' }}
-                      />
-                      <input 
-                        type="text" 
-                        className="form-control" 
-                        value={formData.colorTheme}
-                        onChange={(e) => setFormData({ ...formData, colorTheme: e.target.value })}
-                        placeholder="#2563EB"
-                      />
-                    </div>
+                    <label>Program Image</label>
+                    <label className="program-image-upload">
+                      {imagePreview ? <img src={imagePreview} alt="Program preview" /> : <ImagePlus size={26} />}
+                      <span><Upload size={14} /> {selectedImage ? 'Choose a different image' : 'Upload image'}</span>
+                      <small>PNG, JPG, WEBP or GIF up to 5 MB</small>
+                      <input type="file" accept="image/png,image/jpeg,image/webp,image/gif" onChange={handleImageChange} />
+                    </label>
                   </div>
                 </div>
 
                 <div className="form-row">
-                  <div className="form-group">
-                    <label>CSS Background Gradient</label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={formData.bgGradient}
-                      onChange={(e) => setFormData({ ...formData, bgGradient: e.target.value })}
-                      placeholder="linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)"
-                    />
-                  </div>
-
                   <div className="form-group">
                     <label>Display Order</label>
                     <input 
@@ -386,7 +394,7 @@ export const ProgramsManagerPage: React.FC = () => {
                       onChange={(e) => setFormData({ ...formData, displayOrder: parseInt(e.target.value) || 1 })}
                       min={1}
                     />
-                  </div>
+                  </div>     
                 </div>
 
                 <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '10px' }}>
