@@ -79,7 +79,10 @@ export const ContactInquiriesPage: React.FC = () => {
         </div>
 
         {loading ? (
-          <div style={{ padding: '36px', textAlign: 'center' }}>Loading contact inquiries...</div>
+          <div className="loading-indicator">
+            <div className="spinner"></div>
+            <span>Loading...</span>
+          </div>
         ) : contacts.length === 0 ? (
           <div style={{ padding: '40px', textAlign: 'center', color: '#718096' }}>
             No contact inquiries found.

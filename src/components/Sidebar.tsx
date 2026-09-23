@@ -7,7 +7,8 @@ import {
   Mail, 
   HeartHandshake, 
   ExternalLink,
-  ShieldAlert
+  ShieldAlert,
+  Calendar
 } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
@@ -53,6 +54,14 @@ export const Sidebar: React.FC = () => {
         >
           <Mail size={19} />
           Contact Inquiries
+        </NavLink>
+
+        <NavLink 
+          to="/events" 
+          className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+        >
+          <Calendar size={19} />
+          Events Manager
         </NavLink>
 
         <NavLink 

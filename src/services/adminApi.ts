@@ -79,6 +79,46 @@ export const AdminApi = {
   getDonations: async () => {
     const res = await api.get('/admin/donations');
     return res.data;
+  },
+
+  // Events Management
+  getEvents: async () => {
+    const res = await api.get('/admin/events');
+    return res.data;
+  },
+
+  createEvent: async (data: any) => {
+    const res = await api.post('/admin/events', data);
+    return res.data;
+  },
+
+  updateEvent: async (id: number, data: any) => {
+    const res = await api.put(`/admin/events/${id}`, data);
+    return res.data;
+  },
+
+  toggleEventPublish: async (id: number) => {
+    const res = await api.patch(`/admin/events/${id}/toggle-publish`);
+    return res.data;
+  },
+
+  deleteEvent: async (id: number) => {
+    const res = await api.delete(`/admin/events/${id}`);
+    return res.data;
+  },
+
+  uploadEventImage: async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await api.post('/admin/events/upload-image', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return res.data;
+  },
+
+  getEventRegistrations: async (id: number) => {
+    const res = await api.get(`/admin/events/${id}/registrations`);
+    return res.data;
   }
 };
 

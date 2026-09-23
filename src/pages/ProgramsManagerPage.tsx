@@ -153,7 +153,10 @@ export const ProgramsManagerPage: React.FC = () => {
         </div>
 
         {loading ? (
-          <div style={{ padding: '36px', textAlign: 'center' }}>Loading programs from Supabase...</div>
+          <div className="loading-indicator">
+            <div className="spinner"></div>
+            <span>Loading...</span>
+          </div>
         ) : (
           <table className="custom-table">
             <thead>

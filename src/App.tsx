@@ -6,6 +6,9 @@ import { ProgramsManagerPage } from './pages/ProgramsManagerPage';
 import { VolunteersPage } from './pages/VolunteersPage';
 import { ContactInquiriesPage } from './pages/ContactInquiriesPage';
 import { DonationsPage } from './pages/DonationsPage';
+import { EventsManagerPage } from './pages/EventsManagerPage';
+import { EventEditPage } from './pages/EventEditPage';
+import { EventRegistrationsPage } from './pages/EventRegistrationsPage';
 import './styles/admin.css';
 
 function App() {
@@ -15,6 +18,10 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<OverviewPage />} />
           <Route path="programs" element={<ProgramsManagerPage />} />
+          <Route path="events" element={<EventsManagerPage />} />
+          <Route path="events/new" element={<EventEditPage />} />
+          <Route path="events/:id/edit" element={<EventEditPage />} />
+          <Route path="events/:id/registrations" element={<EventRegistrationsPage />} />
           <Route path="volunteers" element={<VolunteersPage />} />
           <Route path="contacts" element={<ContactInquiriesPage />} />
           <Route path="donations" element={<DonationsPage />} />

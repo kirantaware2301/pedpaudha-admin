@@ -81,7 +81,10 @@ export const VolunteersPage: React.FC = () => {
         </div>
 
         {loading ? (
-          <div style={{ padding: '36px', textAlign: 'center' }}>Loading volunteer applications...</div>
+          <div className="loading-indicator">
+            <div className="spinner"></div>
+            <span>Loading...</span>
+          </div>
         ) : volunteers.length === 0 ? (
           <div style={{ padding: '40px', textAlign: 'center', color: '#718096' }}>
             No volunteer applications found.
