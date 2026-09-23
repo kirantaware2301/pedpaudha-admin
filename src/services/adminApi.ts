@@ -1,0 +1,85 @@
+import axios from 'axios';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+
+const api = axios.create({
+  baseURL: `${API_BASE_URL}/api`,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  timeout: 45000,
+});
+
+export const AdminApi = {
+  // Overview
+  getOverview: async () => {
+    const res = await api.get('/admin/overview');
+    return res.data;
+  },
+
+  // Programs
+  getPrograms: async () => {
+    const res = await api.get('/admin/programs');
+    return res.data;
+  },
+
+  createProgram: async (data: any) => {
+    const res = await api.post('/admin/programs', data);
+    return res.data;
+  },
+
+  updateProgram: async (id: number, data: any) => {
+    const res = await api.put(`/admin/programs/${id}`, data);
+    return res.data;
+  },
+
+  toggleProgramActive: async (id: number) => {
+    const res = await api.patch(`/admin/programs/${id}/toggle-active`);
+    return res.data;
+  },
+
+  deleteProgram: async (id: number) => {
+    const res = await api.delete(`/admin/programs/${id}`);
+    return res.data;
+  },
+
+  // Volunteers ("Get Involved")
+  getVolunteers: async (status: string = 'ALL') => {
+    const res = await api.get(`/admin/volunteers?status=${status}`);
+    return res.data;
+  },
+
+  updateVolunteerStatus: async (id: number, status: string) => {
+    const res = await api.patch(`/admin/volunteers/${id}/status`, { status });
+    return res.data;
+  },
+
+  deleteVolunteer: async (id: number) => {
+    const res = await api.delete(`/admin/volunteers/${id}`);
+    return res.data;
+  },
+
+  // Contact Inquiries
+  getContacts: async (status: string = 'ALL') => {
+    const res = await api.get(`/admin/contacts?status=${status}`);
+    return res.data;
+  },
+
+  updateContactStatus: async (id: number, status: string) => {
+    const res = await api.patch(`/admin/contacts/${id}/status`, { status });
+    return res.data;
+  },
+
+  deleteContact: async (id: number) => {
+    const res = await api.delete(`/admin/contacts/${id}`);
+    return res.data;
+  },
+
+  // Donations
+  getDonations: async () => {
+    const res = await api.get('/admin/donations');
+    return res.data;
+  }
+};
+
+export default api;
