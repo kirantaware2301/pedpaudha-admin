@@ -73,7 +73,7 @@ export const DonationsPage: React.FC = () => {
           <div className="stat-content">
             <h3>Avg. Donation</h3>
             <div className="stat-number">{formatAmount(avgDonation)}</div>
-            <div className="stat-sub">Per successful transaction</div>
+            <div className="stat-sub">Perr successful transaction</div>
           </div>
           <div className="stat-icon-wrapper" style={{ background: 'rgba(232,168,56,0.12)' }}>
             <TrendingUp size={24} color="#D48F19" />
