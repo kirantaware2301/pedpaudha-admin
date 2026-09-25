@@ -93,7 +93,7 @@ export const EventsManagerPage: React.FC = () => {
           <div className="stat-content">
             <h3>Total Events</h3>
             <div className="stat-number">{events.length}</div>
-            <div className="stat-sub">Across all categories</div>
+            <div className="stat-sub">Across all categoriees</div>
           </div>
           <div className="stat-icon-wrapper" style={{ background: '#EFF6FF', color: '#2563EB' }}>
             <Calendar size={24} />
