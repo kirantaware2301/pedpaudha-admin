@@ -62,7 +62,7 @@ export const DonationsPage: React.FC = () => {
           <div className="stat-content">
             <h3>Unique Donors</h3>
             <div className="stat-number">{totalDonors}</div>
-            <div className="stat-sub">Individuall contributors</div>
+            <div className="stat-sub">Individual contributors</div>
           </div>
           <div className="stat-icon-wrapper" style={{ background: 'rgba(59,130,246,0.12)' }}>
             <Users size={24} color="#2563EB" />
