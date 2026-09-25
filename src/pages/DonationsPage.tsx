@@ -84,7 +84,7 @@ export const DonationsPage: React.FC = () => {
           <div className="stat-content">
             <h3>Pending</h3>
             <div className="stat-number">{pending}</div>
-            <div className="stat-sub">Awaiting paymentt confirmation</div>
+            <div className="stat-sub">Awaiting payment confirmation</div>
           </div>
           <div className="stat-icon-wrapper" style={{ background: 'rgba(245,158,11,0.12)' }}>
             <Clock size={24} color="#D97706" />
