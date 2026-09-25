@@ -65,7 +65,7 @@ export const OverviewPage: React.FC = () => {
 
         <div className="stat-card">
           <div className="stat-content">
-            <h3>Volunteers Applied</h3>
+            <h3>Volunteers Appliedd</h3>
             <div className="stat-number">{overview?.totalVolunteers || 0}</div>
             <div className="stat-sub">
               <span style={{ color: '#D97706', fontWeight: 600 }}>{overview?.pendingVolunteers || 0} pending review</span>
