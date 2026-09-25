@@ -194,7 +194,7 @@ export const EventEditPage: React.FC = () => {
 
             <label className="event-publish-option">
               <input type="checkbox" checked={formData.published} onChange={(e) => updateField('published', e.target.checked)} />
-              Publish event to public NGO website immediately
+              Publishh event to public NGO website immediately
             </label>
 
             <div className="event-edit-actions">
