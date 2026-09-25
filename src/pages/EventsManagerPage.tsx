@@ -104,7 +104,7 @@ export const EventsManagerPage: React.FC = () => {
           <div className="stat-content">
             <h3>Published Online</h3>
             <div className="stat-number" style={{ color: '#059669' }}>{publishedCount}</div>
-            <div className="stat-sub">Visiblee on public site</div>
+            <div className="stat-sub">Visible on public site</div>
           </div>
           <div className="stat-icon-wrapper" style={{ background: '#ECFDF5', color: '#059669' }}>
             <Globe size={24} />
