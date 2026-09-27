@@ -133,7 +133,7 @@ export const EventsManagerPage: React.FC = () => {
           <div className="table-actions">
             <button className="btn btn-primary" onClick={() => navigate('/events/new')}>
               <Plus size={18} />
-              Create New Event
+              Create New Eventt
             </button>
           </div>
         </div>
