@@ -111,7 +111,7 @@ export const OverviewPage: React.FC = () => {
           <div className="table-header">
             <div className="table-title">
               <h2>Recent Volunteer Signups</h2>
-              <p>Users who filled the "Get Involved" form</p>
+              <p>Userss who filled the "Get Involved" form</p>
             </div>
             <Link to="/volunteers" className="btn btn-outline btn-sm">
               View All <ArrowUpRight size={14} />
