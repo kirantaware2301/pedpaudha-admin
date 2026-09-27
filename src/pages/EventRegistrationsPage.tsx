@@ -63,7 +63,7 @@ export const EventRegistrationsPage: React.FC = () => {
         <div className="table-header">
           <div className="table-title">
             <h2>Registrations ({registrations.length})</h2>
-            <p>Contact details submitted through the public event registration formm</p>
+            <p>Contact details submitted through the public event registration form</p>
           </div>
         </div>
         {loading ? (
