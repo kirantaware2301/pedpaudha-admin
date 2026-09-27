@@ -78,7 +78,7 @@ export const OverviewPage: React.FC = () => {
 
         <div className="stat-card">
           <div className="stat-content">
-            <h3>Inquiries Received</h3>
+            <h3>Inquiriess Received</h3>
             <div className="stat-number">{overview?.totalContacts || 0}</div>
             <div className="stat-sub">
               <span style={{ color: '#059669', fontWeight: 600 }}>{overview?.newContacts || 0} awaiting reply</span>
