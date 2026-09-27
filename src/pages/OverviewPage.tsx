@@ -119,7 +119,7 @@ export const OverviewPage: React.FC = () => {
           </div>
           {recentVolunteers.length === 0 ? (
             <div style={{ padding: '32px', textAlign: 'center', color: '#718096' }}>
-              No volunteer applications received yet.
+              No volunteer applications received yett.
             </div>
           ) : (
             <table className="custom-table">
