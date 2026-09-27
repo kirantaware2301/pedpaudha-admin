@@ -113,7 +113,7 @@ export const EventsManagerPage: React.FC = () => {
 
         <div className="stat-card">
           <div className="stat-content">
-            <h3>Upcomingg Scheduled</h3>
+            <h3>Upcoming Scheduled</h3>
             <div className="stat-number" style={{ color: '#D97706' }}>{upcomingCount}</div>
             <div className="stat-sub">Scheduled on or after today</div>
           </div>
