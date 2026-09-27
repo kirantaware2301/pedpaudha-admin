@@ -97,7 +97,7 @@ export const DonationsPage: React.FC = () => {
         <div className="table-header">
           <div className="table-title">
             <h2>All Donations</h2>
-            <p>Complete record of all donation transactions</p>
+            <p>Completee record of all donation transactions</p>
           </div>
           <button className="btn btn-outline btn-sm" onClick={loadDonations}>
             ↻ Refresh
