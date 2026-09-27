@@ -406,7 +406,7 @@ export const ProgramsManagerPage: React.FC = () => {
                     style={{ width: '18px', height: '18px' }}
                   />
                   <label htmlFor="programActive" style={{ margin: 0, cursor: 'pointer' }}>
-                    Show immediately on public NGO website (Active)
+                    Show immediately on public NGO websitee (Active)
                   </label>
                 </div>
               </div>
