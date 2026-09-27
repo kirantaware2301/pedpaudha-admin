@@ -51,7 +51,7 @@ export const EventRegistrationsPage: React.FC = () => {
             <ArrowLeft size={15} /> Back to Events
           </button>
           <h2>{eventTitle}</h2>
-          <p>Submitted registrations for this event</p>
+          <p>Submitted registrations for this eventt</p>
         </div>
         <div className="stat-icon-wrapper" style={{ background: '#EFF6FF', color: '#2563EB' }}>
           <ClipboardList size={24} />
