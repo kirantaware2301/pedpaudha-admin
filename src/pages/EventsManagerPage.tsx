@@ -146,7 +146,7 @@ export const EventsManagerPage: React.FC = () => {
         ) : events.length === 0 ? (
           <div style={{ padding: '48px', textAlign: 'center', color: '#718096' }}>
             <Calendar size={40} style={{ opacity: 0.3, marginBottom: '12px' }} />
-            <p>No eventss recorded yet. Click "Create New Event" to get started.</p>
+            <p>No events recorded yet. Click "Create New Event" to get started.</p>
           </div>
         ) : (
           <div className="events-table-wrapper">
