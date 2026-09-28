@@ -168,7 +168,7 @@ export const OverviewPage: React.FC = () => {
           </div>
           {recentContacts.length === 0 ? (
             <div style={{ padding: '32px', textAlign: 'center', color: '#718096' }}>
-              No contact inquiries submitted yett.
+              No contact inquiries submitted yet.
             </div>
           ) : (
             <table className="custom-table">
