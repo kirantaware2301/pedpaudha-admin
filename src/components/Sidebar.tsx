@@ -8,10 +8,20 @@ import {
   HeartHandshake, 
   ExternalLink,
   ShieldAlert,
-  Calendar
+  Calendar,
+  LogOut
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { clearAdminSession } from '../services/adminApi';
 
 export const Sidebar: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    clearAdminSession();
+    navigate('/login', { replace: true });
+  };
+
   return (
     <aside className="admin-sidebar">
       <div className="sidebar-header">
@@ -74,6 +84,10 @@ export const Sidebar: React.FC = () => {
       </nav>
 
       <div className="sidebar-footer">
+        <button className="sidebar-logout-btn" type="button" onClick={handleLogout}>
+          <LogOut size={16} />
+          Sign out
+        </button>
         <a 
           href="http://localhost:5174" 
           target="_blank" 

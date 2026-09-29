@@ -195,8 +195,6 @@ export const ProgramsManagerPage: React.FC = () => {
               <tr>
                 <th>Order</th>
                 <th>Program</th>
-                <th>Slug</th>
-                <th>Image</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -233,11 +231,6 @@ export const ProgramsManagerPage: React.FC = () => {
                       </div>
                     </div>
                   </td>   
-                  <td>   
-                    <code style={{ background: '#F1F5F9', padding: '2px 6px', borderRadius: '4px', fontSize: '0.8rem' }}>
-                      /{prog.slug}
-                    </code>
-                  </td>
                   <td>
                     <button
                       onClick={() => handleToggleActive(prog.id)}
@@ -376,9 +369,13 @@ export const ProgramsManagerPage: React.FC = () => {
                   <div className="form-group">
                     <label>Program Image</label>
                     <label className="program-image-upload">
-                      {imagePreview ? <img src={imagePreview} alt="Program preview" /> : <ImagePlus size={26} />}
-                      <span><Upload size={14} /> {selectedImage ? 'Choose a different image' : 'Upload image'}</span>
-                      <small>PNG, JPG, WEBP or GIF up to 5 MB</small>
+                      <span className="program-image-preview">
+                        {imagePreview ? <img src={imagePreview} alt="Program preview" /> : <ImagePlus size={22} />}
+                      </span>
+                      <span className="program-image-upload-content">
+                        <span className="program-image-upload-button"><Upload size={14} /> Upload Image</span>
+                        <small>PNG, JPG, WEBP or GIF up to 5 MB</small>
+                      </span>
                       <input type="file" accept="image/png,image/jpeg,image/webp,image/gif" onChange={handleImageChange} />
                     </label>
                   </div>

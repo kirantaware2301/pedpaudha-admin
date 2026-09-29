@@ -10,7 +10,36 @@ const api = axios.create({
   timeout: 45000,
 });
 
+const ADMIN_ACCESS_TOKEN_KEY = 'uday-admin-access-token';
+
+api.interceptors.request.use((config) => {
+  const accessToken = sessionStorage.getItem(ADMIN_ACCESS_TOKEN_KEY);
+  if (accessToken && config.url !== '/admin/auth/login') {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use((response) => response, (error) => {
+  const isLoginRequest = error.config?.url === '/admin/auth/login';
+  if ((error.response?.status === 401 || error.response?.status === 403) && !isLoginRequest) {
+    sessionStorage.removeItem(ADMIN_ACCESS_TOKEN_KEY);
+    if (window.location.pathname !== '/login') window.location.replace('/login');
+  }
+  return Promise.reject(error);
+});
+
+export const hasAdminSession = () => Boolean(sessionStorage.getItem(ADMIN_ACCESS_TOKEN_KEY));
+
+export const clearAdminSession = () => sessionStorage.removeItem(ADMIN_ACCESS_TOKEN_KEY);
+
 export const AdminApi = {
+  login: async (email: string, password: string) => {
+    const res = await api.post('/admin/auth/login', { email, password });
+    sessionStorage.setItem(ADMIN_ACCESS_TOKEN_KEY, res.data.accessToken);
+    return res.data;
+  },
+
   // Overview
   getOverview: async () => {
     const res = await api.get('/admin/overview');
@@ -119,7 +148,9 @@ export const AdminApi = {
   uploadEventImage: async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    const res = await api.post('/admin/events/upload-image', formData);
+    const res = await api.post('/admin/events/upload-image', formData, {
+      headers: { 'Content-Type': undefined },
+    });
     return res.data;
   },
 

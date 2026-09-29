@@ -179,10 +179,14 @@ export const EventEditPage: React.FC = () => {
             <div className="form-row">
               <div className="form-group">
                 <label>Event Image</label>
-                <label className="event-image-upload">
-                  {imagePreview ? <img src={imagePreview} alt="Event preview" /> : <ImagePlus size={28} />}
-                  <span><Upload size={15} /> {selectedImage ? 'Choose a different image' : 'Upload image'}</span>
-                  <small>PNG, JPG, WEBP or GIF up to 5 MB</small>
+                <label className="program-image-upload">
+                  <span className="program-image-preview">
+                    {imagePreview ? <img src={imagePreview} alt="Event preview" /> : <ImagePlus size={22} />}
+                  </span>
+                  <span className="program-image-upload-content">
+                    <span className="program-image-upload-button"><Upload size={14} /> Upload Image</span>
+                    <small>PNG, JPG, WEBP or GIF up to 5 MB</small>
+                  </span>
                   <input type="file" accept="image/png,image/jpeg,image/webp,image/gif" onChange={handleImageChange} />
                 </label>
               </div>
