@@ -40,7 +40,12 @@ export const OverviewPage: React.FC = () => {
   };
 
   if (loading) {
-    return <div style={{ padding: '40px', textAlign: 'center' }}>Loading live overview from Supabase...</div>;
+    return (
+      <div className="loading-indicator" style={{ minHeight: '300px' }}>
+        <div className="spinner"></div>
+        <span>Loading...</span>
+      </div>
+    );
   }
 
   return (
@@ -163,7 +168,7 @@ export const OverviewPage: React.FC = () => {
           </div>
           {recentContacts.length === 0 ? (
             <div style={{ padding: '32px', textAlign: 'center', color: '#718096' }}>
-              No contact inquiries submitted yet.
+              No contact inquiries submitted yett.
             </div>
           ) : (
             <table className="custom-table">

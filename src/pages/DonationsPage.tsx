@@ -105,8 +105,9 @@ export const DonationsPage: React.FC = () => {
         </div>
 
         {loading ? (
-          <div style={{ padding: '40px', textAlign: 'center', color: '#718096' }}>
-            Loading donations from Supabase...
+          <div className="loading-indicator">
+            <div className="spinner"></div>
+            <span>Loading...</span>
           </div>
         ) : donations.length === 0 ? (
           <div style={{ padding: '48px', textAlign: 'center', color: '#718096' }}>

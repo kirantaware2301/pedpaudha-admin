@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = 'http://localhost:8080';
 
 const api = axios.create({
   baseURL: `${API_BASE_URL}/api`,
@@ -10,7 +10,36 @@ const api = axios.create({
   timeout: 45000,
 });
 
+const ADMIN_ACCESS_TOKEN_KEY = 'uday-admin-access-token';
+
+api.interceptors.request.use((config) => {
+  const accessToken = sessionStorage.getItem(ADMIN_ACCESS_TOKEN_KEY);
+  if (accessToken && config.url !== '/admin/auth/login') {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use((response) => response, (error) => {
+  const isLoginRequest = error.config?.url === '/admin/auth/login';
+  if ((error.response?.status === 401 || error.response?.status === 403) && !isLoginRequest) {
+    sessionStorage.removeItem(ADMIN_ACCESS_TOKEN_KEY);
+    if (window.location.pathname !== '/login') window.location.replace('/login');
+  }
+  return Promise.reject(error);
+});
+
+export const hasAdminSession = () => Boolean(sessionStorage.getItem(ADMIN_ACCESS_TOKEN_KEY));
+
+export const clearAdminSession = () => sessionStorage.removeItem(ADMIN_ACCESS_TOKEN_KEY);
+
 export const AdminApi = {
+  login: async (email: string, password: string) => {
+    const res = await api.post('/admin/auth/login', { email, password });
+    sessionStorage.setItem(ADMIN_ACCESS_TOKEN_KEY, res.data.accessToken);
+    return res.data;
+  },
+
   // Overview
   getOverview: async () => {
     const res = await api.get('/admin/overview');
@@ -30,6 +59,15 @@ export const AdminApi = {
 
   updateProgram: async (id: number, data: any) => {
     const res = await api.put(`/admin/programs/${id}`, data);
+    return res.data;
+  },
+
+  uploadProgramImage: async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await api.post('/admin/programs/upload-image', formData, {
+      headers: { 'Content-Type': undefined },
+    });
     return res.data;
   },
 
@@ -78,6 +116,46 @@ export const AdminApi = {
   // Donations
   getDonations: async () => {
     const res = await api.get('/admin/donations');
+    return res.data;
+  },
+
+  // Events Management
+  getEvents: async () => {
+    const res = await api.get('/admin/events');
+    return res.data;
+  },
+
+  createEvent: async (data: any) => {
+    const res = await api.post('/admin/events', data);
+    return res.data;
+  },
+
+  updateEvent: async (id: number, data: any) => {
+    const res = await api.put(`/admin/events/${id}`, data);
+    return res.data;
+  },
+
+  toggleEventPublish: async (id: number) => {
+    const res = await api.patch(`/admin/events/${id}/toggle-publish`);
+    return res.data;
+  },
+
+  deleteEvent: async (id: number) => {
+    const res = await api.delete(`/admin/events/${id}`);
+    return res.data;
+  },
+
+  uploadEventImage: async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await api.post('/admin/events/upload-image', formData, {
+      headers: { 'Content-Type': undefined },
+    });
+    return res.data;
+  },
+
+  getEventRegistrations: async (id: number) => {
+    const res = await api.get(`/admin/events/${id}/registrations`);
     return res.data;
   }
 };
