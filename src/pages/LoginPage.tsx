@@ -29,11 +29,11 @@ export const LoginPage: React.FC = () => {
 
   return (
     <main className="admin-login-page">
-      <section className="admin-login-story" aria-label="Uday Foundation">
+      <section className="admin-login-story" aria-label="Well Educated Foundation">
         <div className="admin-login-brand">
           <span className="admin-login-brand-mark"><ShieldAlert size={23} /></span>
           <span>
-            <strong>Uday Foundation</strong>
+            <strong>Well Educated Foundation</strong>
             <small>ADMIN PORTAL</small>
           </span>
         </div>
@@ -49,7 +49,7 @@ export const LoginPage: React.FC = () => {
         </div>
 
         <div className="admin-login-story-footer">
-          <span>UDAY FOUNDATION</span>
+          <span>WELL EDUCATED FOUNDATION</span>
           <span>EST. 2012</span>
         </div>
         <Leaf className="admin-login-story-leaf" aria-hidden="true" />
@@ -59,7 +59,7 @@ export const LoginPage: React.FC = () => {
         <div className="admin-login-form-wrap">
           <span className="admin-login-form-eyebrow">STAFF ACCESS</span>
           <h2 id="admin-login-title">Welcome back</h2>
-          <p className="admin-login-form-intro">Sign in to the Uday Foundation admin portal.</p>
+          <p className="admin-login-form-intro">Sign in to the Well Educated Foundation admin portal.</p>
 
           <form className="admin-login-form" onSubmit={handleSubmit}>
             <label className="admin-login-field">
@@ -69,7 +69,7 @@ export const LoginPage: React.FC = () => {
                 name="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                placeholder="name@udayfoundation.org"
+                placeholder="name@welleducated.org"
                 autoComplete="username"
                 required
               />
@@ -114,7 +114,7 @@ export const LoginPage: React.FC = () => {
 
           <div className="admin-login-form-footer">
             <span className="admin-login-footer-mark"><Leaf size={15} aria-hidden="true" /></span>
-            Uday Foundation · NGO Management Portal
+            Well Educated Foundation · NGO Management Portal
           </div>
         </div>
       </section>

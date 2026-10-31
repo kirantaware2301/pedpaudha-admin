@@ -27,7 +27,7 @@ export const Sidebar: React.FC = () => {
       <div className="sidebar-header">
         <NavLink to="/" className="brand-badge">
           <ShieldAlert size={26} color="#E8A838" />
-          <span>Uday</span> Admin
+          <span>Well Educated</span> Admin
         </NavLink>
         <div className="brand-subtitle">NGO Management Portal</div>
       </div>
