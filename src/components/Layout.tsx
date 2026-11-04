@@ -17,7 +17,7 @@ export const Layout: React.FC = () => {
         if (location.pathname === '/events/new' || location.pathname.startsWith('/events/')) {
           return { title: 'Event Editor', desc: 'Update event details shown on the public NGO website' };
         }
-        return { title: 'Admin Panel', desc: 'Uday Foundation NGO' };
+        return { title: 'Admin Panel', desc: 'Ped Paudha Foundation NGO' };
     }
   };
 
